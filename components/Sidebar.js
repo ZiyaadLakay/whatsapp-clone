@@ -19,7 +19,6 @@ function Sidebar() {
   const [chatsSnapshot] = useCollection(userChatRef);
 
   const createChat = () => {
-    console.log(chatExists(input));
     const input = prompt(
       "Please Enter an email address for the user you want to chat with"
     );
@@ -72,20 +71,30 @@ function Sidebar() {
 
       {/* List of Chats */}
 
-      {true ? (
-        chatsSnapshot?.docs.map((chat) => (
-          <Chat key={chat.id} id={chat.id} users={chat.data().users} />
-        ))
-      ) : (
-        <ChatIcon />
-      )}
+      {chatsSnapshot?.docs.map((chat) => (
+        <Chat key={chat.id} id={chat.id} users={chat.data().users} />
+      ))}
     </Container>
   );
 }
 
 export default Sidebar;
 
-const Container = styled.div``;
+const Container = styled.div`
+  flex: 0.45;
+  border-right: 1px solid whitesmoke;
+  height: 100vh;
+  min-width: 300px;
+  max-width: 300px;
+  overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+`;
 
 const Search = styled.div`
   display: flex;
